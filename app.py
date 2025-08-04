@@ -12,6 +12,7 @@ from utils import get_au_streaming_offers_for_film
 
 # Init app with dark theme
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
+server = app.server
 app.title = "Film Finder"
 
 # Load data
