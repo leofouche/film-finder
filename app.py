@@ -16,7 +16,7 @@ server = app.server
 app.title = "Film Finder"
 
 # Load data
-PROCESSED_PATH = "/data/processed/clean.csv"
+PROCESSED_PATH = "data/clean.csv"
 films = (
     pl.read_csv(PROCESSED_PATH)
     .filter(c("primaryTitle") == c("originalTitle"))
