@@ -10,6 +10,7 @@ export interface Movie {
   foreignFlag: boolean;
   directors: string;
   primaryName: string;
+  posterUrl?: string; // Optional poster URL from OMDb
 }
 
 export interface MovieFilters {

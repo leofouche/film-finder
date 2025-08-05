@@ -6,9 +6,6 @@ import {
   CssBaseline,
   CircularProgress,
   Alert,
-  AppBar,
-  Toolbar,
-  Chip,
   Stack,
   Pagination,
 } from '@mui/material';
@@ -23,29 +20,109 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#667eea',
+      main: '#1a1a1a',
     },
     secondary: {
-      main: '#764ba2',
+      main: '#666666',
     },
     background: {
-      default: '#f8f9fa',
+      default: '#fafafa',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#1a1a1a',
+      secondary: '#666666',
     },
   },
   typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-    h4: {
+    fontFamily: '"Crimson Text", "Times New Roman", "Georgia", serif',
+    h1: {
+      fontFamily: '"Playfair Display", "Times New Roman", serif',
       fontWeight: 700,
+      fontSize: '3.5rem',
+      lineHeight: 1.2,
+    },
+    h2: {
+      fontFamily: '"Playfair Display", "Times New Roman", serif',
+      fontWeight: 600,
+      fontSize: '2.5rem',
+      lineHeight: 1.3,
+    },
+    h3: {
+      fontFamily: '"Playfair Display", "Times New Roman", serif',
+      fontWeight: 600,
+      fontSize: '2rem',
+      lineHeight: 1.3,
+    },
+    h4: {
+      fontFamily: '"Playfair Display", "Times New Roman", serif',
+      fontWeight: 600,
+      fontSize: '1.75rem',
+      lineHeight: 1.4,
+    },
+    h5: {
+      fontFamily: '"Playfair Display", "Times New Roman", serif',
+      fontWeight: 500,
+      fontSize: '1.5rem',
+      lineHeight: 1.4,
     },
     h6: {
-      fontWeight: 600,
+      fontFamily: '"Playfair Display", "Times New Roman", serif',
+      fontWeight: 500,
+      fontSize: '1.25rem',
+      lineHeight: 1.4,
+    },
+    body1: {
+      fontFamily: '"Crimson Text", "Times New Roman", serif',
+      fontSize: '1.1rem',
+      lineHeight: 1.6,
+    },
+    body2: {
+      fontFamily: '"Crimson Text", "Times New Roman", serif',
+      fontSize: '1rem',
+      lineHeight: 1.5,
+    },
+    caption: {
+      fontFamily: '"Source Sans Pro", "Helvetica", sans-serif',
+      fontSize: '0.875rem',
+      lineHeight: 1.4,
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px',
     },
   },
   components: {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
+          borderRadius: 0,
+          boxShadow: 'none',
+          border: '1px solid #e0e0e0',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          textTransform: 'none',
+          fontFamily: '"Source Sans Pro", "Helvetica", sans-serif',
+          fontWeight: 500,
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 0,
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
         },
       },
     },
@@ -124,6 +201,21 @@ function App() {
     setRuntimeRange([0, 300]);
   };
 
+  const handleGenreClick = (selectedGenre: string) => {
+    setGenre(selectedGenre);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  const handleDirectorClick = (selectedDirector: string) => {
+    setDirector(selectedDirector);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  const handleYearClick = (selectedYear: number) => {
+    setYearRange([selectedYear, selectedYear]);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
   if (loading) {
     return (
       <ThemeProvider theme={theme}>
@@ -161,44 +253,61 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static" elevation={0} sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-        <Toolbar>
-          <LocalMovies sx={{ mr: 2 }} />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 700 }}>
-            Film Finder
-          </Typography>
-          <Chip 
-            label={`${movies.length} movies`} 
-            sx={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', color: 'white' }}
-          />
-        </Toolbar>
-      </AppBar>
+      <Box sx={{ 
+        borderBottom: '3px solid #1a1a1a',
+        backgroundColor: '#ffffff',
+        py: 3,
+        mb: 4,
+      }}>
+        <Container maxWidth="xl">
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography 
+              variant="h1" 
+              component="h1"
+              sx={{ 
+                color: '#1a1a1a',
+                mb: 1,
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+              }}
+            >
+              The Film Chronicle
+            </Typography>
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center',
+              gap: 2,
+              mb: 2,
+            }}>
+              <Box sx={{ height: '1px', backgroundColor: '#1a1a1a', flex: 1, maxWidth: '200px' }} />
+              <Typography 
+                variant="caption" 
+                sx={{ 
+                  color: '#666666',
+                  fontFamily: '"Source Sans Pro", sans-serif',
+                  letterSpacing: '1px',
+                }}
+              >
+                EST. 2025 • DISCOVER • EXPLORE • CRITIQUE
+              </Typography>
+              <Box sx={{ height: '1px', backgroundColor: '#1a1a1a', flex: 1, maxWidth: '200px' }} />
+            </Box>
+            <Typography 
+              variant="h5" 
+              sx={{ 
+                color: '#666666',
+                fontStyle: 'italic',
+                fontWeight: 400,
+              }}
+            >
+              Fouche's Fantastic Film Archive
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
 
-      <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Box sx={{ mb: 4 }}>
-          <Typography 
-            variant="h4" 
-            component="h1" 
-            gutterBottom 
-            sx={{ 
-              textAlign: 'center', 
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Discover Amazing Movies
-          </Typography>
-          <Typography 
-            variant="h6" 
-            color="text.secondary" 
-            sx={{ textAlign: 'center', mb: 3 }}
-          >
-            Explore our curated collection of films with advanced filtering
-          </Typography>
-        </Box>
-
+      <Container maxWidth="xl" sx={{ py: 0 }}>
         <Filters
           title={title}
           setTitle={setTitle}
@@ -217,40 +326,89 @@ function App() {
           onClearFilters={clearFilters}
         />
 
-        <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <MovieIcon color="primary" />
-            <Typography variant="h6" sx={{ fontWeight: 600 }}>
-              {filteredMovies.length} movies found
-            </Typography>
+        <Box sx={{ 
+          mb: 4, 
+          py: 3,
+          borderTop: '1px solid #e0e0e0',
+          borderBottom: '1px solid #e0e0e0',
+          backgroundColor: '#ffffff',
+        }}>
+          <Stack 
+            direction={{ xs: 'column', md: 'row' }} 
+            spacing={2} 
+            justifyContent="space-between" 
+            alignItems={{ xs: 'flex-start', md: 'center' }}
+          >
+            <Box>
+              <Typography 
+                variant="h4" 
+                sx={{ 
+                  fontWeight: 500,
+                  color: '#1a1a1a',
+                  mb: 0.5,
+                }}
+              >
+                Cinema Collection
+              </Typography>
+              <Typography 
+                variant="body1" 
+                sx={{ 
+                  color: '#666666',
+                  fontStyle: 'italic',
+                }}
+              >
+                {filteredMovies.length} films currently on display
+              </Typography>
+            </Box>
+            
+            {totalPages > 1 && (
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={(_, page) => setCurrentPage(page)}
+                color="primary"
+                size="large"
+                sx={{
+                  '& .MuiPaginationItem-root': {
+                    borderRadius: 0,
+                    fontFamily: '"Source Sans Pro", sans-serif',
+                  },
+                }}
+              />
+            )}
           </Stack>
-          
-          {totalPages > 1 && (
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={(_, page) => setCurrentPage(page)}
-              color="primary"
-              size="large"
-            />
-          )}
         </Box>
 
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: '1fr',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(3, 1fr)',
-              lg: 'repeat(4, 1fr)',
+            columnCount: {
+              xs: 1,
+              sm: 2,
+              md: 3,
+              lg: 4,
+              xl: 5,
             },
-            gap: 3,
+            columnGap: 3,
             mb: 4,
           }}
         >
           {paginatedMovies.map((movie) => (
-            <MovieCard key={movie.titleId} movie={movie} />
+            <Box 
+              key={movie.titleId} 
+              sx={{ 
+                breakInside: 'avoid',
+                mb: 3,
+                display: 'inline-block',
+                width: '100%',
+              }}
+            >
+              <MovieCard 
+                movie={movie} 
+                onGenreClick={handleGenreClick}
+                onDirectorClick={handleDirectorClick}
+                onYearClick={handleYearClick}
+              />
+            </Box>
           ))}
         </Box>
 
@@ -259,26 +417,67 @@ function App() {
             sx={{
               textAlign: 'center',
               py: 8,
+              backgroundColor: '#ffffff',
+              border: '1px solid #e0e0e0',
             }}
           >
-            <MovieIcon sx={{ fontSize: 64, color: 'text.disabled', mb: 2 }} />
-            <Typography variant="h6" color="text.secondary" gutterBottom>
-              No movies found
+            <Typography 
+              variant="h4" 
+              sx={{ 
+                fontFamily: '"Playfair Display", serif',
+                color: '#666666', 
+                mb: 2,
+                fontWeight: 400,
+              }}
+            >
+              No Films Found
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Try adjusting your filters to see more results
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                color: '#666666',
+                fontStyle: 'italic',
+              }}
+            >
+              Perhaps adjust your search criteria to discover more cinematic treasures
             </Typography>
           </Box>
         )}
 
         {totalPages > 1 && paginatedMovies.length > 0 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              mt: 6, 
+              py: 4,
+              borderTop: '1px solid #e0e0e0',
+              backgroundColor: '#ffffff',
+            }}
+          >
             <Pagination
               count={totalPages}
               page={currentPage}
               onChange={(_, page) => setCurrentPage(page)}
               color="primary"
               size="large"
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  borderRadius: 0,
+                  fontFamily: '"Source Sans Pro", sans-serif',
+                  border: '1px solid #e0e0e0',
+                  '&.Mui-selected': {
+                    backgroundColor: '#1a1a1a',
+                    color: 'white',
+                    '&:hover': {
+                      backgroundColor: '#333333',
+                    },
+                  },
+                  '&:hover': {
+                    backgroundColor: '#f5f5f5',
+                  },
+                },
+              }}
             />
           </Box>
         )}
