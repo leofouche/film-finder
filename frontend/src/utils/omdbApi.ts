@@ -1,4 +1,4 @@
-const OMDB_API_KEY = "9115f698";
+const OMDB_API_KEY = "1cbd3ca7";
 const OMDB_BASE_URL = 'http://www.omdbapi.com/';
 
 export interface OMDbResponse {
