@@ -10,7 +10,7 @@ import {
   Pagination,
 } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Movie as MovieIcon, LocalMovies } from '@mui/icons-material';
+
 import { Movie } from './types/Movie';
 import { loadMoviesFromCSV, getUniqueGenres, getUniqueDirectors, filterMovies } from './utils/movieUtils';
 import MovieCard from './components/MovieCard';
