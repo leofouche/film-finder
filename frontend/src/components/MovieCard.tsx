@@ -14,6 +14,7 @@ import {
 } from '@mui/icons-material';
 import { Movie } from '../types/Movie';
 import { fetchMoviePoster } from '../utils/omdbApi';
+import StreamingServices from './StreamingServices';
 
 interface MovieCardProps {
   movie: Movie;
@@ -233,7 +234,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
         </Box>
 
         {/* Genres as tags */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
           {genres.slice(0, 3).map((genre, index) => (
             <Chip
               key={index}
@@ -274,6 +275,9 @@ const MovieCard: React.FC<MovieCardProps> = ({
             />
           )}
         </Box>
+
+        {/* Streaming Services */}
+        <StreamingServices movieTitle={movie.primaryTitle} compact />
       </CardContent>
     </Card>
   );
